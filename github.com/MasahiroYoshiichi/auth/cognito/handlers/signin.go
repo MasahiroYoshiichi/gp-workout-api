@@ -1,18 +1,34 @@
 package handlers
 
 import (
-	"fmt"
+	"encoding/json"
+	"net/http"
+
 	"github.com/MasahiroYoshiichi/auth/cognito/models"
 	"github.com/MasahiroYoshiichi/auth/cognito/services"
 	"github.com/MasahiroYoshiichi/auth/config"
 )
 
-func SignInHandler(cfg *config.Config, signinInfo models.AuthInfo) {
+func SignInHandler(w http.ResponseWriter, r *http.Request) {
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var signinInfo models.AuthInfo
+	err = json.NewDecoder(r.Body).Decode(&signinInfo)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
 	signInService := services.NewSignInService(cfg)
 	initiateAuthOutput, err := signInService.SignIn(signinInfo)
 	if err != nil {
-		fmt.Println("Error signing in:", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Println("SignIn result:", initiateAuthOutput)
+
+	json.NewEncoder(w).Encode(initiateAuthOutput)
 }

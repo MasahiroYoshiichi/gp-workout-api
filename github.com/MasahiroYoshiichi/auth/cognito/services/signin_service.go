@@ -31,11 +31,5 @@ func (s *SignInService) SignIn(signinInfo models.AuthInfo) (*cognitoidentityprov
 			"PASSWORD": aws.String(signinInfo.Password),
 		},
 	}
-
-	result, err := s.cognitoClient.InitiateAuth(input)
-	if err != nil {
-		return nil, err
-	}
-
-	return result, nil
+	return s.cognitoClient.InitiateAuth(input)
 }

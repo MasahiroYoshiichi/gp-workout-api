@@ -1,18 +1,34 @@
 package handlers
 
 import (
-	"fmt"
+	"encoding/json"
+	"net/http"
+
 	"github.com/MasahiroYoshiichi/auth/cognito/models"
 	"github.com/MasahiroYoshiichi/auth/cognito/services"
 	"github.com/MasahiroYoshiichi/auth/config"
 )
 
-func ConfirmSignUpHandler(cfg *config.Config, confirmSignupInfo models.AuthInfo) {
-	confirmSignUpService := services.NewConfirmSignUpService(cfg)
-	err := confirmSignUpService.ConfirmSignUp(confirmSignupInfo)
+func ConfirmSignUpHandler(w http.ResponseWriter, r *http.Request) {
+	cfg, err := config.LoadConfig()
 	if err != nil {
-		fmt.Println("Error confirming sign up:", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Println("ConfirmSignUp succeeded")
+
+	var confirmSignupInfo models.AuthInfo
+	err = json.NewDecoder(r.Body).Decode(&confirmSignupInfo)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	confirmSignUpService := services.NewConfirmSignUpService(cfg)
+	err = confirmSignUpService.ConfirmSignUp(confirmSignupInfo)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 }

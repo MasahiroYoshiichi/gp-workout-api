@@ -11,7 +11,7 @@ type Config struct {
 	ClientId   string `json:"client_id"`
 }
 
-func LoadCpnfig() (*Config, error) {
+func LoadConfig() (*Config, error) {
 	file, err := os.Open("config/config.json")
 	if err != nil {
 		return nil, err

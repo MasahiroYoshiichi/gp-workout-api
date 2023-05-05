@@ -1,17 +1,34 @@
 package handlers
 
 import (
-	"fmt"
+	"encoding/json"
+	"net/http"
+
+	"github.com/MasahiroYoshiichi/auth/cognito/models"
 	"github.com/MasahiroYoshiichi/auth/cognito/services"
 	"github.com/MasahiroYoshiichi/auth/config"
 )
 
-func SignOutHandler(cfg *config.Config, accessToken string) {
-	signOutService := services.NewSignOutService(cfg)
-	err := signOutService.SignOut(accessToken)
+func SignOutHandler(w http.ResponseWriter, r *http.Request) {
+	cfg, err := config.LoadConfig()
 	if err != nil {
-		fmt.Println("Error signing out:", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Println("SignOut succeeded")
+
+	var signoutInfo models.AuthInfo
+	err = json.NewDecoder(r.Body).Decode(&signoutInfo)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	signOutService := services.NewSignOutService(cfg)
+	err = signOutService.SignOut(signoutInfo.AccessToken)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 }
