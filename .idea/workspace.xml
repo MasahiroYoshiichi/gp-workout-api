@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6b88b4d-e496-44d1-a542-ef261904bb10" name="変更" comment="cognito接続、handlersとservicesに分割&#10;awsの設定ファイル、認証情報の型定義ファイル作成">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/handlers/confirm_signup.go" beforeDir="false" afterPath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/handlers/confirm_signup.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/handlers/signin.go" beforeDir="false" afterPath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/handlers/signin.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/handlers/signout.go" beforeDir="false" afterPath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/handlers/signout.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/handlers/signup.go" beforeDir="false" afterPath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/handlers/signup.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/models/auth_info.go" beforeDir="false" afterPath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/models/auth_info.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/services/signin_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/cognito/services/signin_service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/github.com/MasahiroYoshiichi/auth/go.sum" afterDir="false" />
-    </list>
+    <list default="true" id="b6b88b4d-e496-44d1-a542-ef261904bb10" name="変更" comment="apiサーバー（gorilla/mux使用）設定&#10;各エンドポイントへの接続" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -110,7 +98,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="cognito接続、handlersとservicesに分割&#10;awsの設定ファイル、認証情報の型定義ファイル作成" />
-    <option name="LAST_COMMIT_MESSAGE" value="cognito接続、handlersとservicesに分割&#10;awsの設定ファイル、認証情報の型定義ファイル作成" />
+    <MESSAGE value="apiサーバー（gorilla/mux使用）設定&#10;各エンドポイントへの接続" />
+    <option name="LAST_COMMIT_MESSAGE" value="apiサーバー（gorilla/mux使用）設定&#10;各エンドポイントへの接続" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
