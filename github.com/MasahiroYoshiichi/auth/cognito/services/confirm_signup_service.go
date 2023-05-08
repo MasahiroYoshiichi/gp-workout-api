@@ -22,7 +22,7 @@ func NewConfirmSignUpService(cfg *config.Config) *ConfirmSignUpService {
 	}
 }
 
-func (s *ConfirmSignUpService) ConfirmSignUp(confirmSignupInfo models.AuthInfo) error {
+func (s *ConfirmSignUpService) ConfirmSignUp(confirmSignupInfo models.ConfirmSignUpInfo) error {
 	input := &cognitoidentityprovider.ConfirmSignUpInput{
 		ClientId:         aws.String(s.clientId),
 		Username:         aws.String(confirmSignupInfo.Username),

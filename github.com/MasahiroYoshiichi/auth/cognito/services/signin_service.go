@@ -22,12 +22,12 @@ func NewSignInService(cfg *config.Config) *SignInService {
 	}
 }
 
-func (s *SignInService) SignIn(signinInfo models.AuthInfo) (*cognitoidentityprovider.InitiateAuthOutput, error) {
+func (s *SignInService) SignIn(signinInfo models.SignInInfo) (*cognitoidentityprovider.InitiateAuthOutput, error) {
 	input := &cognitoidentityprovider.InitiateAuthInput{
 		ClientId: aws.String(s.clientId),
 		AuthFlow: aws.String(cognitoidentityprovider.AuthFlowTypeUserPasswordAuth),
 		AuthParameters: map[string]*string{
-			"USERNAME": aws.String(signinInfo.Username),
+			"USERNAME": aws.String(signinInfo.Email),
 			"PASSWORD": aws.String(signinInfo.Password),
 		},
 	}

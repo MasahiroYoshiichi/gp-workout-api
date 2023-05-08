@@ -22,7 +22,7 @@ func NewSignUpService(cfg *config.Config) *SignUpService {
 	}
 }
 
-func (s *SignUpService) SignUp(signupInfo models.AuthInfo) (*cognitoidentityprovider.SignUpOutput, error) {
+func (s *SignUpService) SignUp(signupInfo models.SignUpInfo) (*cognitoidentityprovider.SignUpOutput, error) {
 	signUpInput := &cognitoidentityprovider.SignUpInput{
 		ClientId: aws.String(s.clientId),
 		Username: aws.String(signupInfo.Username),

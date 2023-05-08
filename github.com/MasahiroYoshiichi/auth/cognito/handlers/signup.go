@@ -12,7 +12,7 @@ import (
 func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 	cfg, _ := config.LoadConfig()
 
-	var signupInfo models.AuthInfo
+	var signupInfo models.SignUpInfo
 	err := json.NewDecoder(r.Body).Decode(&signupInfo)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -20,11 +20,17 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	signUpService := services.NewSignUpService(cfg)
-	signUpOutput, err := signUpService.SignUp(signupInfo)
+	_, err = signUpService.SignUp(signupInfo)
 	if err != nil {
 		http.Error(w, "サインアップできませんでした。"+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(signUpOutput)
+	response := struct {
+		Username string `json:"username"`
+	}{
+		Username: signupInfo.Username,
+	}
+
+	json.NewEncoder(w).Encode(response)
 }

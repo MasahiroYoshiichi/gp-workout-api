@@ -16,7 +16,7 @@ func ConfirmSignUpHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var confirmSignupInfo models.AuthInfo
+	var confirmSignupInfo models.ConfirmSignUpInfo
 	err = json.NewDecoder(r.Body).Decode(&confirmSignupInfo)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

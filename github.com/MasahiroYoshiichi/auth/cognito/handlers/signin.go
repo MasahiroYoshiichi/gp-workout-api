@@ -16,7 +16,7 @@ func SignInHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var signinInfo models.AuthInfo
+	var signinInfo models.SignInInfo
 	err = json.NewDecoder(r.Body).Decode(&signinInfo)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -30,5 +30,23 @@ func SignInHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(initiateAuthOutput)
+	idToken := initiateAuthOutput.AuthenticationResult.IdToken
+	if idToken == nil {
+		http.Error(w, "ID token is missing", http.StatusInternalServerError)
+		return
+	}
+	//tokenManager := customtoken.NewTokenManager(cfg.JWtSecret)
+	//token, err := tokenManager.GenerateToken(signinInfo.Username)
+	//if err != nil {
+	//	http.Error(w, "トークンが作成できませんでした。", http.StatusInternalServerError)
+	//	return
+	//}
+
+	response := struct {
+		Token string `json:"token"`
+	}{
+		Token: *idToken,
+	}
+
+	json.NewEncoder(w).Encode(response)
 }

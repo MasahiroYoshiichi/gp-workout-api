@@ -1,12 +1,10 @@
 package handlers
 
 import (
-	"encoding/json"
-	"net/http"
-
-	"github.com/MasahiroYoshiichi/auth/cognito/models"
+	"github.com/MasahiroYoshiichi/auth/cognito/cognitotoken"
 	"github.com/MasahiroYoshiichi/auth/cognito/services"
 	"github.com/MasahiroYoshiichi/auth/config"
+	"net/http"
 )
 
 func SignOutHandler(w http.ResponseWriter, r *http.Request) {
@@ -16,15 +14,14 @@ func SignOutHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var signoutInfo models.AuthInfo
-	err = json.NewDecoder(r.Body).Decode(&signoutInfo)
+	accessToken, err := cognitotoken.AccessTokenFromContext(r.Context())
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, "ヘッダーに認証情報がありません。", http.StatusUnauthorized)
 		return
 	}
 
 	signOutService := services.NewSignOutService(cfg)
-	err = signOutService.SignOut(signoutInfo.AccessToken)
+	err = signOutService.SignOut(accessToken)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
