@@ -5,6 +5,10 @@ type SignInInfo struct {
 	Password string `json:"password"`
 }
 
+type MFACode struct {
+	MFACode string `json:"MFACode"`
+}
+
 type SignUpInfo struct {
 	Username    string `json:"username"`
 	Email       string `json:"email"`
@@ -12,10 +16,13 @@ type SignUpInfo struct {
 	Password    string `json:"password"`
 }
 
-type ConfirmSignUpInfo struct {
-	Username         string `json:"username"`
+type ConfirmCode struct {
 	ConfirmationCode string `json:"confirmationCode"`
 }
+
+//type ConfirmUser struct {
+//	Username string
+//}
 
 type AuthInfo struct {
 	AccessToken string `json:"accessToken"`

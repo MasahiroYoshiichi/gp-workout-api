@@ -31,5 +31,14 @@ func (s *SignInService) SignIn(signinInfo models.SignInInfo) (*cognitoidentitypr
 			"PASSWORD": aws.String(signinInfo.Password),
 		},
 	}
-	return s.cognitoClient.InitiateAuth(input)
+	initiateAuthOutput, err := s.cognitoClient.InitiateAuth(input)
+	if err != nil {
+		return nil, err
+	}
+
+	if initiateAuthOutput.ChallengeName != nil && *initiateAuthOutput.ChallengeName == cognitoidentityprovider.ChallengeNameTypeSmsMfa {
+		return initiateAuthOutput, nil
+	}
+
+	return initiateAuthOutput, nil
 }
